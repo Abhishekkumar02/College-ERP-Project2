@@ -7,6 +7,7 @@ A college management system built using Django framework. It is designed for int
 http://avik001.pythonanywhere.com/accounts/login/
 
 Username :- samarth
+
 password :- project123
 
 # Admin Link
@@ -14,4 +15,5 @@ password :- project123
 http://avik001.pythonanywhere.com/admin/
 
 username:- demo
+
 password:- demodemo
