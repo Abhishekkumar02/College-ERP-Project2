@@ -105,6 +105,20 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+              <a href="{% url 'timetable' request.user.student.class_id_id %}">
+                <img class="card-img-top" src="{% static 'info/images/timetable.png' %}" alt="">
+              </a>
+              <div class="card-body">
+              <h4 class="card-title">Assignments</h4>
+              <p class="card-text">Submit Your Assignments</p>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary" role="button" href="{% url 'assignment' request.user.student.class_id_id %}">View Assignments</a>
+            </div>
+          </div>
+        </div>
 
 
       </div>

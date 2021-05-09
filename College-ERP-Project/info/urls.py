@@ -10,6 +10,7 @@ urlpatterns = [
     # path('student/<slug:class_id>/search/', views.student_search, name='student_search'),
 
     path('student/<slug:stud_id>/marks_list/', views.marks_list, name='marks_list'),
+    path('student/<slug:class_id>/assignment/', views.assignment, name='assignment'),
 
     path('teacher/<slug:teacher_id>/<int:choice>/Classes/', views.t_clas, name='t_clas'),
     path('teacher/<int:assign_id>/Students/attendance/', views.t_student, name='t_student'),

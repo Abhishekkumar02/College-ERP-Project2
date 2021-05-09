@@ -23,6 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static '/info/bootstrap/css/sb-admin.css' %}" rel="stylesheet">
+    <link href="{% static '/info/css/style.css' %}" rel="stylesheet">
 
     <!-- Latest compiled and minified CSS -->
 
@@ -88,6 +89,11 @@
               <li class="nav-item">
               <a class="nav-link" href="{% url 'timetable' request.user.student.class_id_id %}">
                 <span>Time Table</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'assignment' request.user.student.class_id_id %}">
+                <span>Assignment</span>
               </a>
             </li>
 
@@ -183,6 +189,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{% static '/info/bootstrap/js/sb-admin.min.js' %}"></script>
+    <script src="{% static '/info/js/uploadbtn.js' %}"></script>
+    <script src="{% static '/info/js/script.js' %}"></script>
 
    {% block scripts %}
     {% endblock %}

@@ -3,9 +3,26 @@ from django.http import HttpResponseRedirect
 from .models import Dept, Class, Student, Attendance, Course, Teacher, Assign, AttendanceTotal, time_slots, DAYS_OF_WEEK, AssignTime, AttendanceClass, StudentCourse, Marks, MarksClass
 from django.urls import reverse
 from django.utils import timezone
+import PyPDF2
+import os,re,math
+import pytesseract
+from PIL import Image
+from pdf2image import convert_from_path
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
+dir_path = os.path.dirname(os.path.realpath(__file__))
+UPLOAD_FOLDER = dir_path + '/static/images'
+UPLOAD_FOLDER_PDF = dir_path + '/static/pdf'
+File_EXTENSIONS = set(['pdf'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def pdf_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in File_EXTENSIONS
 
 @login_required
 def index(request):
@@ -288,7 +305,32 @@ def marks_list(request, stud_id):
 
     return render(request, 'info/marks_list.html', {'sc_list': sc_list})
 
-
+@login_required()
+def assignment(request, class_id):
+    print(request,"lllllll")
+    # asst = AssignTime.objects.filter(assign__class_id=class_id)
+    page_content = ""
+    new_page_content = ""
+    print("-------------------- %s",request)
+    if request.method == 'POST' and 'file' not in request.FILES:
+        return render(request, 'info/assignment.html')
+    if request.method == 'POST' and request.FILES['file']:
+        file = request.FILES['file']
+        fs = FileSystemStorage()
+        filename = file.name
+        pdf_data = 'info//static//pdf//' + filename
+        read_pdf = PyPDF2.PdfFileReader(pdf_data)
+        number_of_pages = read_pdf.getNumPages()
+        for i in range(number_of_pages):
+            page = read_pdf.getPage(i)
+            page_content += page.extractText()
+        new_page_content = cosineSimilarity(page_content)
+        # print(new_page_content)
+        # if request.form.get("ajax"):
+        #     return text
+        # return new_page_content
+        
+    return render(request, 'info/assignment.html',{'new_page_content': new_page_content})
 # teacher marks
 
 
@@ -356,7 +398,79 @@ def student_marks(request, assign_id):
 
 
 
+def cosineSimilarity(inputQuery):
+	
+	universalSetOfUniqueWords = []
+	matchPercentage = 0
+	lowercaseQuery = inputQuery.lower()
+	print(lowercaseQuery)
+	queryWordList = re.sub("[^\w]", " ",lowercaseQuery).split()			#Replace punctuation by space and split
 
+	for word in queryWordList:
+		if word not in universalSetOfUniqueWords:
+			universalSetOfUniqueWords.append(word)
+
+	####################################################################################################
+
+	fd = open("info/database1.txt", "r")
+	database1 = fd.read().lower()
+
+	databaseWordList = re.sub("[^\w]", " ",database1).split()	#Replace punctuation by space and split
+
+	for word in databaseWordList:
+		if word not in universalSetOfUniqueWords:
+			universalSetOfUniqueWords.append(word)
+
+	####################################################################################################
+
+	queryTF = []
+	databaseTF = []
+
+	for word in universalSetOfUniqueWords:
+		queryTfCounter = 0
+		databaseTfCounter = 0
+
+		for word2 in queryWordList:
+			if word == word2:
+				queryTfCounter += 1
+		queryTF.append(queryTfCounter)
+
+		for word2 in databaseWordList:
+			if word == word2:
+				databaseTfCounter += 1
+		databaseTF.append(databaseTfCounter)
+
+	dotProduct = 0
+	for i in range (len(queryTF)):
+		dotProduct += queryTF[i]*databaseTF[i]
+
+	queryVectorMagnitude = 0
+	for i in range (len(queryTF)):
+		queryVectorMagnitude += queryTF[i]**2
+	queryVectorMagnitude = math.sqrt(queryVectorMagnitude)
+
+	databaseVectorMagnitude = 0
+	for i in range (len(databaseTF)):
+		databaseVectorMagnitude += databaseTF[i]**2
+	databaseVectorMagnitude = math.sqrt(databaseVectorMagnitude)
+
+	matchPercentage = (float)(dotProduct / (queryVectorMagnitude * databaseVectorMagnitude))*100
+
+	'''
+	print queryWordList
+	print
+	print databaseWordList
+
+
+	print queryTF
+	print
+	print databaseTF
+	'''
+	output = "Plagiarism Detected %0.02f%% ."%matchPercentage
+	fd = open("info/database1.txt", "w")
+	fd.write(inputQuery)
+	fd.close()
+	return output
 
 
 

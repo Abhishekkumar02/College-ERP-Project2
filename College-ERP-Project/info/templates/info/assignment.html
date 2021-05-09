@@ -1,0 +1,59 @@
+{% extends 'info/base.html' %}
+
+    {% block content %}
+    <div class="container">
+        <div class="container">
+            <div class="row" >
+                <div class="col-md-12 textp">
+                    <h2 class="text-center">
+                        Submit Your Assignments here 
+                    </h2>
+                    <h1 class="text-center">
+                        Upload your file!
+                    </h1>
+                </div>
+                
+                <div class="text-center uploadform">
+                <form method="post" enctype=multipart/form-data class="text-center">
+                    {% csrf_token %}
+                    <div class="flex-container text-center">
+                        <div class="form-group upload" >
+                            <input type="file" name="file" id="img" title="" class="drop-here" width="250" height="250" accept=".pdf,image/jpeg,image/png">
+                            <div class="text text-drop">Select or DROP a File</div>
+                            <div class="text text-upload">uploading...</div>
+                            <svg class="check-wrapper" width="130" height="130">
+                                <polyline class="check" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="uploadButtons">
+                        <button class="btn btn-success btn-lg dropdown-submit">Submit</button>
+                    </div>
+                </form>
+                
+            </div>
+            </div>
+            <section class="result hidden">
+                <div class="resultText text-center">Results Assignment submitted</div>
+                <div class="leftInput remove">
+                    <div id="inputImage" class="imagePreview"></div>
+                    <span id="fileName"></span>
+                </div>
+                <div class="text-center">
+                    {% if new_page_content %}
+                <p><h3>{{new_page_content}}</h3></p>    
+                {% else %}  
+                <p class="text-center"><h3></h3></p>     
+                {% endif %}
+                </div>
+                <span title="close result panel" class="closeResult">&#x26CC;</span>
+                <textarea id="originalData"></textarea>
+            </section>
+    
+        </div>
+
+
+    </div>
+
+    {% endblock %}

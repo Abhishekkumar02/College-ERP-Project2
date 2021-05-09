@@ -1,0 +1,58 @@
+In the present Era, there are too many developments in the field of drones. 
+Besides, the military and commercial applications of drones, there is no doubt in 
+their efficiency in case of supporting em
+ergency disaster operations. It focuses 
+mainly in emergency operations, like activity immediately after the occurrence 
+of a disaster like nuclear accidents, dangerous material releases, floods, 
+earthquakes. For special rescue teams, the drone can help much
+ 
+in a rapid location 
+selection, detecting real time situation, counting number of people or males and 
+females. Floods are typical for a slow onset disaster. In contrast, managing floods 
+is a very complex and difficult task. It requires continuous monitorin
+g of dykes, 
+flooded and threatened areas. Drone can help managers largely keeping an area 
+under observation. Drone can be used for fire detection, intervention monitoring 
+and also for post
+-
+fire monitoring. In case of nuclear accident or hazardous 
+material 
+leakage drone is also a very effective or can be the only one tool for 
+supporting emergency operations.
+ 
+ 
+A quadcopter can achieve vertical flight in a stable manner and be used to monitor 
+or collect data in a specific region such as mapping terrains. Techn
+ological 
+advances have reduced the cost and increase the performance of the low power 
+microcontrollers that allowed the general public to develop their own quadcopter. 
+The goal of this project is to build, modify, and improve an existing quadcopter 
+kit to 
+obtain stable flight, gather and store GPS data, and perform auto
+ 
+commands, 
+such as auto
+-
+landing. The project used an Aeroquad quadcopter kit that included 
+a frame, motors, electronic speed controllers, Arduino Mega development board, 
+and sensor boards and
+ 
+used with the provided Aeroquad software. Batteries, a 
+transmitter, a receiver, a GPS module, and a micro SD card adaptor were 
+interfaced with the kit. The aeroquad software was modified to properly interface 
+the components with the quadcopter kit. Indivi
+dual components were tested and 
+verified to work properly.
+ 
+ 
+a frame, motors, electronic speed controllers, Arduino Mega development board, 
+and sensor boards and
+ 
+used with the provided Aeroquad software. Batteries, a 
+transmitter, a receiver, a GPS module, and a micro SD card adaptor were 
+interfaced with the kit. The aeroquad software was modified to properly interface 
+the components with the quadcopter kit. Indivi
+dual components were tested and 
+verified to work properly.
+ 
+ 
